@@ -7,11 +7,20 @@ export default class ApartmentsService {
       ["page", page],
       ["search", search],
     ]);
-    try {
       const response = await api.get("/apartments", { params });
       return response.data.data;
-    } catch (error) {
-      throw new Error(error);
+
+  }
+
+  async postApartment(data) {
+    const fd = new FormData();
+
+    for (const key in data) {
+      fd.append(key, data[key]);
     }
+    const res = await api.post('/apartments', fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return res.data.data;
   }
 }

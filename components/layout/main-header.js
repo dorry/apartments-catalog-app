@@ -17,7 +17,7 @@ export default function MainHeader() {
       <Navbar maxWidth="full" shouldHideOnScroll>
         <NavbarBrand>
           <Image src="/globe.svg" alt="logomark" width={20} height={20} />
-          <p className="font-bold text-inherit">Apartments Catalog</p>
+          <p className="font-bold text-inherit ml-2">Apartments Catalog</p>
         </NavbarBrand>
         <NavbarContent justify="end">
           <NavbarItem>
