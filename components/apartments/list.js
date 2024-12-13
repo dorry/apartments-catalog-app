@@ -7,28 +7,25 @@ import {
   Input,
   Pagination,
 } from "@nextui-org/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useApartmentStore } from "@/lib/store/apartments.store";
 import { useDebouncedCallback } from "use-debounce";
 import Link from "next/link";
 
 export default function ApartmentsList() {
-  const { apartments, loading, error, fetchApartments } = useApartmentStore();
+  const { apartments, loading, error, fetchApartments, totalPages } =
+    useApartmentStore();
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    fetchApartments();
-  }, [fetchApartments]);
+    fetchApartments("", currentPage);
+  }, [fetchApartments, currentPage]);
 
   const handleSearchChange = useDebouncedCallback((e) => {
     const { name, value } = e.target;
+    setCurrentPage(1);
     fetchApartments(value);
   }, 300);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const ITEMS_PER_PAGE = 8;
-  // const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
-  // const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  // const endIndex = startIndex + ITEMS_PER_PAGE;
-  // const currentItems = items.slice(startIndex, endIndex);
 
   const renderPage = () => {
     return (
@@ -66,16 +63,16 @@ export default function ApartmentsList() {
       />
 
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p>Site is under maintainence :s</p>}
       {renderPage()}
 
       <div className="flex justify-center mt-4">
-        {/* <Pagination
+        <Pagination
           total={totalPages}
           initialPage={1}
           page={currentPage}
           onChange={setCurrentPage}
-        /> */}
+        />
       </div>
     </div>
   );

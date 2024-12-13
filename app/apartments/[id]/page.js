@@ -1,8 +1,8 @@
 import ApartmentDetails from "@/components/apartments/details";
 import ApartmentDetailsService from "@/services/apartmentDetails.service";
 export default async function ApartmentPage({ params }) {
-  const id = params.slug;
-  const apartmentDetailsService = new ApartmentDetailsService(id);
+  const { id } = await params;
+  const apartmentDetailsService = new ApartmentDetailsService();
   const apartmentDetails = await apartmentDetailsService.getApartmentDetails(
     id
   );
