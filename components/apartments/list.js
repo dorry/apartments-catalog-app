@@ -27,8 +27,16 @@ export default function ApartmentsList() {
     fetchApartments(value);
   }, 300);
 
-  const renderPage = () => {
-    return (
+  return (
+    <div>
+      <Input
+        className="p-4 w-96"
+        label="Search"
+        onChange={handleSearchChange}
+      />
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {apartments.map((apartment) => (
           <Link key={apartment.id} href={`/apartments/${apartment.id}`}>
@@ -51,20 +59,6 @@ export default function ApartmentsList() {
           </Link>
         ))}
       </div>
-    );
-  };
-
-  return (
-    <div>
-      <Input
-        className="p-4 w-96"
-        label="Search"
-        onChange={handleSearchChange}
-      />
-
-      {loading && <p>Loading...</p>}
-      {error && <p>Site is under maintainence :s</p>}
-      {renderPage()}
 
       <div className="flex justify-center mt-4">
         <Pagination
